@@ -78,8 +78,9 @@ class Meter
 
     private function _calculate()
     {
-        $fee  = $this->_getFee($this->route);
-        $dist = $this->map->getDistance($this->route)[0];
+        $map_data = $this->map->getDistance($this->route);
+        $dist = $map_data[0];
+        $fee  = $this->fee[$map_data[1]];
 
         $this->dist_meter += $dist;
 
@@ -87,13 +88,6 @@ class Meter
             $this->dist_meter -= $this->count;
             $this->amount += $fee;
         }
-    }
-
-
-    private function _getFee()
-    {
-        $dist = $this->map->getDistance($this->route);
-        return $this->fee[$dist[1]];
     }
 }
 
